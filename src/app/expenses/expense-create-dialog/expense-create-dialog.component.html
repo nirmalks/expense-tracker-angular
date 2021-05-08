@@ -1,0 +1,29 @@
+<form class="example-form"  (ngSubmit)="onSubmit()">
+
+     <mat-form-field class="example-full-width">
+        <mat-label>Amount</mat-label>
+        <input type="number" [formControl]="expenseAmount" matInput>
+      </mat-form-field>
+   
+ 
+        <mat-form-field color="accent" appearance="fill">
+            <mat-label>Date of expense</mat-label>
+            <input matInput [formControl]="expenseDate" [matDatepicker]="picker1">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+ 
+    <mat-form-field appearance="fill">
+        <mat-label>Category</mat-label>
+        <mat-select [formControl]="expenseCategory" name="food">
+          <mat-option *ngFor="let food of foods" [value]="food.value">
+            {{food.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Description</mat-label>
+        <input type="input" [formControl]="expenseDescription" matInput>
+      </mat-form-field>
+<button mat-raised-button color="primary" type="submit">Submit</button>
+  </form>
