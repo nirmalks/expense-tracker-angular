@@ -1,8 +1,39 @@
 <mat-divider></mat-divider>
 <section>
-    <div class="example-label">Expenses</div>
+    <div class="example-label">Quick Links</div>
     <div class="example-button-row">
       <button mat-raised-button color="primary" (click)="addExpense()">Add an expense</button>
       <!-- <button mat-raised-button color="accent" (click)="addExpense()">Delete expense</button> -->
     </div>
+
+</section>
+<section>
+  <h3>Recent Expenses</h3>
+  <div>
+    <table mat-table [dataSource]="latestExpenses" class="mat-elevation-z8">
+    
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef>Date</th>
+        <td mat-cell *matCellDef="let element"> {{element.expenseDate | date: 'dd/MM/yyyy'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef>Description </th>
+        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef> Amount</th>
+        <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef>Category</th>
+        <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+      </ng-container>
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
 </section>
