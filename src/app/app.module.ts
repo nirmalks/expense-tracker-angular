@@ -18,11 +18,13 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {MatTableModule} from '@angular/material/table';
+import { ExpensesListComponent } from './expenses/expenses-list/expenses-list.component';
 @NgModule({
   declarations: [
     AppComponent,
     ExpensesComponent,
-    ExpenseCreateDialogComponent
+    ExpenseCreateDialogComponent,
+    ExpensesListComponent
   ],
   imports: [
     BrowserModule,
