@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import {MatTableModule} from '@angular/material/table';
-
 import { MatDialog } from '@angular/material/dialog';
 
 import { ExpenseCreateDialogComponent } from './expenses/expense-create-dialog/expense-create-dialog.component';
