@@ -15,4 +15,7 @@ export class ExpensesService {
     return this.http.get(this.configUrl + "/expenses");
   }
 
+  deleteExpense(id: String) {
+    return this.http.delete(this.configUrl + "/expenses/" + id);
+  }
 }

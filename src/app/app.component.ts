@@ -1,7 +1,4 @@
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-
-import { ExpenseCreateDialogComponent } from './expenses/expense-create-dialog/expense-create-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -10,12 +7,5 @@ import { ExpenseCreateDialogComponent } from './expenses/expense-create-dialog/e
 })
 export class AppComponent {
   title = 'expense-tracker';
-  constructor(public dialog: MatDialog) { }
-  addExpense() {
-    const dialogRef = this.dialog.open(ExpenseCreateDialogComponent);
-
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log(`Dialog result: ${result}`);
-    // });
-  }
+  constructor() { }
 }

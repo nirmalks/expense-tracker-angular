@@ -18,7 +18,7 @@ export class ExpensesComponent implements OnInit {
 
   showExpenses() {
     this.expensesService.getExpenses().subscribe((data: any) => {
-      this.latestExpenses = data.slice(Math.max(data.length - 5, 0))
+      this.latestExpenses = data.slice(Math.max(data.length - 5, 0));
     });
   }
 }
