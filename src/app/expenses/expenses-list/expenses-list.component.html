@@ -4,7 +4,7 @@
 <section>
     <h3>Expenses</h3>
     <div>
-      <table mat-table [dataSource]="latestExpenses" class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       
         <ng-container matColumnDef="date">
           <th mat-header-cell *matHeaderCellDef>Date</th>
@@ -29,7 +29,7 @@
         <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef> Action </th>
             <td mat-cell *matCellDef="let element;"> 
-               <button mat-raised-button (click)="deleteExpense(element._id)">
+               <button mat-raised-button (click)="deleteExpense(element)">
                     <mat-icon aria-hidden="false" aria-label="delete icon">delete</mat-icon>
                </button>
             </td>

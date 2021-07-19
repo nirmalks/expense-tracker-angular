@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
 import { ExpensesListComponent } from './expenses/expenses-list/expenses-list.component';
 import { ExpensesComponent } from './expenses/expenses.component';
 

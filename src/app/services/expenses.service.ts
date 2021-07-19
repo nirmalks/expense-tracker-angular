@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import Expense from "../expenses/models/expense";
 
 @Injectable({
   providedIn: 'root'
@@ -17,5 +16,9 @@ export class ExpensesService {
 
   deleteExpense(id: String) {
     return this.http.delete(this.configUrl + "/expenses/" + id);
+  }
+
+  createExpense(expense: Expense) {
+    return this.http.post(this.configUrl + "/expenses", expense);
   }
 }

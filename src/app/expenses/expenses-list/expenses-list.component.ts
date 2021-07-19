@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
 import { ExpensesService } from 'src/app/services/expenses.service';
 import { ExpenseCreateDialogComponent } from '../expense-create-dialog/expense-create-dialog.component';
-import {MatIconModule} from '@angular/material/icon';
+import Expense from '../models/expense';
 
 @Component({
   selector: 'app-expenses-list',
@@ -11,28 +12,38 @@ import {MatIconModule} from '@angular/material/icon';
 })
 export class ExpensesListComponent implements OnInit {
 
-  constructor(public dialog: MatDialog, 
-    private expensesService: ExpensesService) { }
-    latestExpenses: Array<any> = [];
-    displayedColumns: string[] = ['date', 'amount', 'category', 'description', 'actions'];
+  constructor(public dialog: MatDialog, private expensesService: ExpensesService) { }
+  latestExpenses: Expense[] = [];
+  dataSource = this.latestExpenses;
+  displayedColumns: string[] = ['date', 'amount', 'category', 'description', 'actions'];
+
   ngOnInit(): void {
     this.showExpenses();
   }
 
   addExpense() {
-    const dialogRef = this.dialog.open(ExpenseCreateDialogComponent);
+    const dialogRef = this.dialog.open(ExpenseCreateDialogComponent, {
+      data: {}
+    });
+    dialogRef.afterClosed().subscribe(data => {
+      if(data) {
+        this.showExpenses();
+      }
+    })
   }
 
   showExpenses() {
     this.expensesService.getExpenses().subscribe((data: any) => {
-      this.latestExpenses = data;
+      this.dataSource = data;
     });
   }
 
-  deleteExpense(id: String) {
-    console.log(id)
-    this.expensesService.deleteExpense(id).subscribe(
-      
+
+  deleteExpense(element: any) {
+    this.expensesService.deleteExpense(element._id).subscribe(
+        data => {
+          this.dataSource = this.dataSource.filter((item: any) => item !== element);
+        }
     );
   }
 
