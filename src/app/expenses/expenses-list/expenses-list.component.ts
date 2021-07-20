@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
 import { ExpensesService } from 'src/app/services/expenses.service';
 import { ExpenseCreateDialogComponent } from '../expense-create-dialog/expense-create-dialog.component';
 import Expense from '../models/expense';
@@ -38,13 +37,29 @@ export class ExpensesListComponent implements OnInit {
     });
   }
 
-
   deleteExpense(element: any) {
     this.expensesService.deleteExpense(element._id).subscribe(
-        data => {
+        _data => {
           this.dataSource = this.dataSource.filter((item: any) => item !== element);
         }
     );
+  }
+
+  updateExpense(element: Expense) {
+    // this.expensesService.deleteExpense(element._id).subscribe(
+    //     _data => {
+    //       this.dataSource = this.dataSource.filter((item: any) => item !== element);
+    //     }
+    // );
+    console.log(element);
+    const dialogRef = this.dialog.open(ExpenseCreateDialogComponent, {
+      data: { element }
+    });
+    dialogRef.afterClosed().subscribe(data => {
+      if(data) {
+        this.showExpenses();
+      }
+    })
   }
 
 }

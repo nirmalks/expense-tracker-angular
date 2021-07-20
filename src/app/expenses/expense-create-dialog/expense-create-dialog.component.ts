@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { FormBuilder } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import * as moment from 'moment';
 import { ExpensesService } from 'src/app/services/expenses.service';
 import Category from '../models/category';
@@ -12,34 +12,52 @@ import Category from '../models/category';
   templateUrl: './expense-create-dialog.component.html',
   styleUrls: ['./expense-create-dialog.component.scss']
 })
-export class ExpenseCreateDialogComponent implements OnInit {
+export class ExpenseCreateDialogComponent implements OnInit, AfterViewInit {
   expenseAmount = new FormControl('');
   expenseDescription = new FormControl('');
   expenseDate = new FormControl(moment());
   expenseCategory = new FormControl('');
   selectedValue: any = "";
   selectedCar: string = "";
-  
-  expenseCreateForm : any = "";
-  constructor(private fb: FormBuilder, private expensesService: ExpensesService,
-    public dialogRef: MatDialogRef<ExpenseCreateDialogComponent>) { 
-    this.expenseCreateForm= this.fb.group({
+  expenseId: string = "";
 
-    })
+  expenseCreateForm : any = "";
+  constructor(private expensesService: ExpensesService,
+    public dialogRef: MatDialogRef<ExpenseCreateDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any, 
+    private cdr: ChangeDetectorRef) { 
   }
 
   ngOnInit(): void {
  
   }
 
+  ngAfterViewInit(): void {
+    if (this.data.element != undefined) {
+      this.expenseAmount.setValue(this.data.element.amount);
+      this.expenseDescription.setValue(this.data.element.description);
+      var dateString = moment(this.data.element.expenseDate).format("DD/MM/YYYY");
+      this.expenseDate.setValue(this.data.element.expenseDate);
+      this.expenseCategory.setValue(this.data.element.category);
+      this.expenseId = this.data.element._id;
+      this.cdr.detectChanges();
+    }
+  }
+
   onSubmit() {
+    console.log(this.expenseDate.value)
     const expense = {
       "category": this.expenseCategory.value,
       "amount": this.expenseAmount.value,
       "description": this.expenseDescription.value,
-      "date": this.expenseDate.value.format("DD/MM/YYYY")
+      "date": moment(this.expenseDate.value).format("DD/MM/YYYY"),
+      "id": this.expenseId
     };
-    this.expensesService.createExpense(expense).subscribe();
+    if (this.expenseId) {
+      this.expensesService.updateExpense(expense).subscribe()
+    } else {
+      this.expensesService.createExpense(expense).subscribe();
+    }
   }
 
   onNoClick(): void {
