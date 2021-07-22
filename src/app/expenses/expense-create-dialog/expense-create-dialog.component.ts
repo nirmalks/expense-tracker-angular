@@ -36,7 +36,6 @@ export class ExpenseCreateDialogComponent implements OnInit, AfterViewInit {
     if (this.data.element != undefined) {
       this.expenseAmount.setValue(this.data.element.amount);
       this.expenseDescription.setValue(this.data.element.description);
-      var dateString = moment(this.data.element.expenseDate).format("DD/MM/YYYY");
       this.expenseDate.setValue(this.data.element.expenseDate);
       this.expenseCategory.setValue(this.data.element.category);
       this.expenseId = this.data.element._id;
@@ -45,7 +44,6 @@ export class ExpenseCreateDialogComponent implements OnInit, AfterViewInit {
   }
 
   onSubmit() {
-    console.log(this.expenseDate.value)
     const expense = {
       "category": this.expenseCategory.value,
       "amount": this.expenseAmount.value,

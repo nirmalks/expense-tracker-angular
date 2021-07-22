@@ -136,22 +136,6 @@ a.selected-link {
     margin-left: 60px;
   }
 
-  svg#rocket {
-    width: 80px;
-    position: absolute;
-    left: -10px;
-    top: -24px;
-  }
-
-  svg#rocket-smoke {
-    height: calc(100vh - 95px);
-    position: absolute;
-    top: 10px;
-    right: 180px;
-    z-index: -10;
-  }
-
-
   .terminal {
     position: relative;
     width: 80%;
@@ -217,14 +201,6 @@ a.selected-link {
     align-items: center;
   }
 
-  svg#clouds {
-    position: fixed;
-    bottom: -160px;
-    left: -230px;
-    z-index: -10;
-    width: 1920px;
-  }
-
 
   /* Responsive Styles */
   @media screen and (max-width: 767px) {
@@ -243,15 +219,11 @@ a.selected-link {
       margin-left: 72px;
     }
 
-    svg#rocket-smoke {
-      right: 120px;
-      transform: rotate(-5deg);
-    }
+
   }
 
-  @media screen and (max-width: 575px) {
-    svg#rocket-smoke {
-      display: none;
-      visibility: hidden;
-    }
+  .logo-text {
+    padding: 20px;
+    font-size: 20px;
+    font-weight: bold;
   }

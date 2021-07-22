@@ -23,6 +23,6 @@
     <mat-label>Description</mat-label>
     <input type="input" [formControl]="expenseDescription" matInput>
   </mat-form-field>
-  <button mat-button mat-dialog-close (click)="onNoClick()">No Thanks</button>
+  <button mat-button mat-dialog-close color="primary" (click)="onNoClick()">Close</button>
   <button mat-raised-button color="primary" [mat-dialog-close]="true" type="submit">Submit</button>
 </form>

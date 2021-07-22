@@ -78,3 +78,22 @@ table {
 th.mat-header-cell {
   padding: 15px;
 }
+
+table td {
+  font-size: 12px;
+}
+
+th.mat-header-cell , td.mat-cell{
+  padding: 10px;
+  line-height: 15px;
+  text-align: center;
+}
+
+th {
+  color: #1976d2;
+}
+
+table
+{
+  padding:2px;
+}

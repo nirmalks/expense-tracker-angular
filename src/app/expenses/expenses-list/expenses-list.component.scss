@@ -1,0 +1,40 @@
+.actions-container button {
+    font-size: 12px;
+    margin: 20px 0px ;
+}
+
+table td {
+    font-size: 12px;
+}
+
+th.mat-header-cell , td.mat-cell{
+    padding: 10px;
+    line-height: 15px;
+    text-align: center;
+}
+
+th {
+    color: #1976d2;
+}
+
+table
+{
+    padding:2px;
+}
+
+td.mat-cell.actions-td {
+    padding:0px ; 
+}
+
+td.mat-cell.actions-td .mat-raised-button {
+    min-width: 30px;
+    padding:0px ; 
+}
+
+td.mat-cell.actions-td .mat-icon {
+    font-size: 18px;
+}
+
+.actions-td button {
+    box-shadow: none;
+}

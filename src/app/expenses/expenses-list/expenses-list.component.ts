@@ -46,12 +46,6 @@ export class ExpensesListComponent implements OnInit {
   }
 
   updateExpense(element: Expense) {
-    // this.expensesService.deleteExpense(element._id).subscribe(
-    //     _data => {
-    //       this.dataSource = this.dataSource.filter((item: any) => item !== element);
-    //     }
-    // );
-    console.log(element);
     const dialogRef = this.dialog.open(ExpenseCreateDialogComponent, {
       data: { element }
     });

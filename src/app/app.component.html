@@ -1,11 +1,10 @@
 <div class="toolbar" role="banner">
-  <span>Expense Tracker</span>
+  <span class="logo-text">Expense Tracker</span>
   <nav>
-  <a routerLink="/" routerLinkActive="selected-link" [routerLinkActiveOptions]="{ exact: true }">Home</a>
-  <a routerLink="expenses-list" routerLinkActive="selected-link">Manage Expenses</a>
-</nav>
+    <a routerLink="/" routerLinkActive="selected-link" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+    <a routerLink="expenses-list" routerLinkActive="selected-link">Manage Expenses</a>
+  </nav>
 </div>
 <div class="content">
   <router-outlet></router-outlet>
 </div>
-
