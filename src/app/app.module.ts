@@ -22,6 +22,11 @@ import { ExpensesListComponent } from './expenses/expenses-list/expenses-list.co
 import { MatIconModule } from '@angular/material/icon';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { CUSTOM_DATE_FORMATS } from './expenses/models/date-format';
+import { reducers, metaReducers } from './reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { ExpenseEffects } from './effects/expense';
 
 @NgModule({
   declarations: [
@@ -46,7 +51,10 @@ import { CUSTOM_DATE_FORMATS } from './expenses/models/date-format';
     ReactiveFormsModule,
     HttpClientModule,
     MatTableModule,
-    MatIconModule
+    MatIconModule,
+    StoreModule.forRoot(reducers, { metaReducers }),
+    EffectsModule.forRoot([ExpenseEffects]),
+    !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
   providers: [
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },

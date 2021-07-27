@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { ExpenseActionType } from '../actions/expense.action';
+import { ExpensesState } from '../reducers/expenses';
+import { AppState, selectTopExpenses } from '../selectors/expense';
 
-import {ExpensesService} from '../services/expenses.service';
+import Expense from './models/expense';
 
 @Component({
   selector: 'app-expenses',
@@ -9,16 +14,13 @@ import {ExpensesService} from '../services/expenses.service';
 })
 export class ExpensesComponent implements OnInit {
 
-  constructor(private expensesService: ExpensesService) { }
-  latestExpenses: Array<any> = [];
+  constructor(private store: Store<AppState>) { }
   displayedColumns: string[] = ['date', 'amount', 'category', 'description'];
+
+  latestExpenses: Observable<Expense[]> = this.store.select(selectTopExpenses);
+  
   ngOnInit(): void {
-    this.showExpenses();
+    this.store.dispatch({ type: ExpenseActionType.getAllExpenses});
   }
 
-  showExpenses() {
-    this.expensesService.getExpenses().subscribe((data: any) => {
-      this.latestExpenses = data.slice(Math.max(data.length - 5, 0));
-    });
-  }
 }
