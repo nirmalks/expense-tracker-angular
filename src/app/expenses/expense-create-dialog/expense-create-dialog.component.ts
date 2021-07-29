@@ -2,7 +2,10 @@ import { ChangeDetectorRef } from '@angular/core';
 import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
 import * as moment from 'moment';
+import { createExpense, updateExpense } from 'src/app/actions/expense.action';
+import { AppState } from 'src/app/reducers';
 import { ExpensesService } from 'src/app/services/expenses.service';
 import Category from '../models/category';
 
@@ -25,7 +28,8 @@ export class ExpenseCreateDialogComponent implements OnInit, AfterViewInit {
   constructor(private expensesService: ExpensesService,
     public dialogRef: MatDialogRef<ExpenseCreateDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, 
-    private cdr: ChangeDetectorRef) { 
+    private cdr: ChangeDetectorRef,
+    private store: Store<AppState>) { 
   }
 
   ngOnInit(): void {
@@ -52,9 +56,9 @@ export class ExpenseCreateDialogComponent implements OnInit, AfterViewInit {
       "_id": this.expenseId
     };
     if (this.expenseId) {
-      this.expensesService.updateExpense(expense).subscribe()
+      this.store.dispatch(updateExpense({expense}));
     } else {
-      this.expensesService.createExpense(expense).subscribe();
+      this.store.dispatch(createExpense({expense}));
     }
   }
 

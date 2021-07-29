@@ -21,6 +21,45 @@ export class ExpenseEffects {
         )
     );
 
+    updateExpense$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(ExpenseActionType.updateExpense),
+            mergeMap(({ expense }) => {
+                return this.expensesService.updateExpense(expense).pipe(
+                    map((expense: Object) =>
+                    (
+                        { type: ExpenseActionType.updateExpenseSuccess, expense: expense })
+                    ),
+                    catchError(() => of({ type: ExpenseActionType.updateExpenseFailure }))
+                )
+            })));
+
+     createExpense$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(ExpenseActionType.createExpense),
+            mergeMap(({ expense }) => {
+                return this.expensesService.createExpense(expense).pipe(
+                    map((expense: Object) =>
+                    (
+                        { type: ExpenseActionType.createExpenseSuccess, expense: expense })
+                    ),
+                    catchError(() => of({ type: ExpenseActionType.createExpenseFailure }))
+                )
+            })));
+
+    deleteExpense$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(ExpenseActionType.deleteExpense),
+            mergeMap(({expenseId}) => {
+                return this.expensesService.deleteExpense(expenseId).pipe(
+                    map(() => (
+                        { type: ExpenseActionType.deleteExpenseSuccess })
+                    ),
+                    catchError(() => of({ type: ExpenseActionType.deleteExpenseFailure }))
+                );})
+        )
+    );
+
     constructor(
         private actions$: Actions,
         private expensesService: ExpensesService

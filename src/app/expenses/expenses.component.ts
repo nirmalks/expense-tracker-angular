@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 import { ExpenseActionType } from '../actions/expense.action';
 import { AppState } from '../reducers';
 import { selectTopExpenses } from '../reducers/expenses';
@@ -22,7 +21,6 @@ export class ExpensesComponent implements OnInit {
     this.store.dispatch({ type: ExpenseActionType.getAllExpenses});
     const expenses$ = this.store.select(selectTopExpenses);
     expenses$.subscribe(data => this.latestExpenses = data);
-    console.log(this.latestExpenses)
   }
 
 }

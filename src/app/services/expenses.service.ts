@@ -15,7 +15,7 @@ export class ExpensesService {
     return this.http.get<Expense[]>(this.configUrl + "/expenses");
   }
 
-  deleteExpense(id: String) {
+  deleteExpense(id: String): Observable<Object> {
     return this.http.delete(this.configUrl + "/expenses/" + id);
   }
 
@@ -23,7 +23,7 @@ export class ExpensesService {
     return this.http.post(this.configUrl + "/expenses", expense);
   }
 
-  updateExpense(expense: Expense) {
+  updateExpense(expense: Expense): Observable<Object> {
     return this.http.put(this.configUrl + "/expenses/" + expense._id, expense);
   }
 }

@@ -3,7 +3,7 @@ interface Expense {
     description: String;
     category: String;
     expenseDate: String;
-    _id?: String;
+    _id: String;
 }
 
 export default Expense;
