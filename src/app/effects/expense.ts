@@ -8,12 +8,15 @@ import { ExpensesService } from './../services/expenses.service';
  
 @Injectable()
 export class ExpenseEffects {
-    loadExpense$ = createEffect(() => 
+    loadExpense$ = createEffect(() =>
         this.actions$.pipe(
             ofType(ExpenseActionType.getAllExpenses),
             mergeMap(() => this.expensesService.getExpenses().pipe(
-                map((expenses: Expense[]) => ({ type: '[Movies API] Movies Loaded Success', payload: expenses })),
-                catchError(() => of({ type: '[Movies API] Movies Loaded Error' }))
+                map((expenses: Expense[]) =>
+                (
+                    { type: ExpenseActionType.getAllExpensesSuccess, expenses: expenses })
+                ),
+                catchError(() => of({ type: ExpenseActionType.getAllExpensesFailure }))
             ))
         )
     );

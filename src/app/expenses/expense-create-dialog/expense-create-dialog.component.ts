@@ -48,8 +48,8 @@ export class ExpenseCreateDialogComponent implements OnInit, AfterViewInit {
       "category": this.expenseCategory.value,
       "amount": this.expenseAmount.value,
       "description": this.expenseDescription.value,
-      "date": moment(this.expenseDate.value).format("DD/MM/YYYY"),
-      "id": this.expenseId
+      "expenseDate": moment(this.expenseDate.value).format("DD/MM/YYYY"),
+      "_id": this.expenseId
     };
     if (this.expenseId) {
       this.expensesService.updateExpense(expense).subscribe()

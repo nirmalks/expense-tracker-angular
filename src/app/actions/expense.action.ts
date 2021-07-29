@@ -6,7 +6,9 @@ export enum ExpenseActionType {
     getExpense = '[Expense] Get expense',
     createExpense = '[Expense] Create expense',
     updateExpense = '[Expense] Update expense',
-    deleteExpense = '[Expense] Delete expense'
+    deleteExpense = '[Expense] Delete expense',
+    getAllExpensesSuccess = '[Expense API] Load Expenses Success',
+    getAllExpensesFailure = '[Expense API] Load Expenses Failure'
 }
 
 export const getExpenses = createAction(
@@ -26,10 +28,15 @@ export const createExpense = createAction(
 
 export const updateExpense = createAction(
     ExpenseActionType.updateExpense,
-    props<{ expendId: string, expenses: Expense }>()
+    props<{ expenseId: string, expenses: Expense }>()
 );
 
 export const deleteExpense = createAction(
     ExpenseActionType.deleteExpense,
-    props<{ expendId: string }>()
+    props<{ expenseId: string }>()
+);
+
+export const getAllExpensesSuccess = createAction(
+    ExpenseActionType.getAllExpensesSuccess,
+    props<{ expenses: any }>()
 );

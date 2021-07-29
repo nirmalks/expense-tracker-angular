@@ -24,6 +24,6 @@ export class ExpensesService {
   }
 
   updateExpense(expense: Expense) {
-    return this.http.put(this.configUrl + "/expenses/" + expense.id, expense);
+    return this.http.put(this.configUrl + "/expenses/" + expense._id, expense);
   }
 }
