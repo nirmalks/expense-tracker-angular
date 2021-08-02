@@ -16,7 +16,10 @@ export class ExpenseEffects {
                 (
                     { type: ExpenseActionType.getAllExpensesSuccess, expenses: expenses })
                 ),
-                catchError(() => of({ type: ExpenseActionType.getAllExpensesFailure }))
+                catchError((error) => {
+                    return of({ type: ExpenseActionType.getAllExpensesFailure, error: error.statusText })
+                }
+                )
             ))
         )
     );

@@ -44,7 +44,7 @@ export const deleteExpense = createAction(
 
 export const getAllExpensesSuccess = createAction(
     ExpenseActionType.getAllExpensesSuccess,
-    props<{ expenses: any }>()
+    props<{ expenses: any, error: string }>()
 );
 
 export const updateExpenseSuccess = createAction(
@@ -54,4 +54,9 @@ export const updateExpenseSuccess = createAction(
 
 export const deleteExpenseSuccess = createAction(
     ExpenseActionType.updateExpenseSuccess
+);
+
+export const getAllExpensesFailure = createAction(
+    ExpenseActionType.getAllExpensesFailure,
+    props<{ expenses: any, error: string }>()
 );

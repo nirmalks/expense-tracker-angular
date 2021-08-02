@@ -1,6 +1,11 @@
 <section>
-  <h3>Recent Expenses</h3>
   <div>
+    <div *ngIf="expensesApiError$ | async as error">
+      <h1 class="error-message"><mat-icon>error</mat-icon> Error while fetching expenses: {{ error }}</h1>
+    </div>
+
+    <ng-template>
+    <h3>Recent Expenses</h3>
     <table mat-table [dataSource]="latestExpenses" class="mat-elevation-z8">
     
       <ng-container matColumnDef="date">
@@ -26,5 +31,6 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+  </ng-template>
   </div>
 </section>

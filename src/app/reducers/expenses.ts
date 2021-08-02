@@ -4,11 +4,13 @@ import Expense from "../expenses/models/expense";
 import * as ExpenseActions from './../actions/expense.action';
 
 export interface ExpensesState {
-    expenses: Expense[]
+    expenses: Expense[],
+    getExpensesErrorMessage?: string
 }
 
 const initialState: ExpensesState = {
-    expenses:[]
+    expenses:[],
+    getExpensesErrorMessage: null
 }
 
 const expensesReducer = createReducer(
@@ -25,7 +27,15 @@ const expensesReducer = createReducer(
     on(ExpenseActions.getAllExpensesSuccess, (state, { expenses }) => ({
         ...state,
         expenses
-    }))
+    })),
+    on(ExpenseActions.getAllExpensesFailure, (state, { expenses, error }) => {
+        return {
+            ...state,
+            expenses,
+            getExpensesErrorMessage: error
+        }
+    }
+    )
 )
 
 export const selectAllExpense = (state: AppState) => state.data;
@@ -38,6 +48,11 @@ export const selectTopExpenses = createSelector(
 export const selectAllExpenses = createSelector(
     selectAllExpense,
     (state: ExpensesState) => state.expenses
+);
+
+export const selectAllExpensesError = createSelector(
+    selectAllExpense,
+    (state: ExpensesState) => state.getExpensesErrorMessage
 );
 
 export function reducer(state: ExpensesState | undefined, action: Action) {
