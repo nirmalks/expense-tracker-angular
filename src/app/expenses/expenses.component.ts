@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { ExpenseActionType } from '../actions/expense.action';
-import { AppState } from '../reducers';
-import { selectAllExpenses, selectAllExpensesError, selectTopExpenses } from '../reducers/expenses';
-
-import Expense from './models/expense';
+import { ExpenseActionType } from '../store/actions/expense.actions';
+import Expense from '../store/models/expense.model';
+import { AppState } from '../store/reducers';
+import { expensesQuery } from '../store/selectors/expense.selector';
 
 @Component({
   selector: 'app-expenses',
@@ -20,13 +19,13 @@ export class ExpensesComponent implements OnInit {
   expensesApiError$: Observable<string>;
 
   ngOnInit(): void {
-    this.store.dispatch({ type: ExpenseActionType.getAllExpenses });
-    this.expensesApiError$ = this.store.select(selectAllExpensesError);
-    if (!this.expensesApiError$) {
-      const expenses$ = this.store.select(selectTopExpenses);
-      expenses$.subscribe(data => this.latestExpenses = data);
-    }
-   
+    this.store.dispatch({ type: ExpenseActionType.loadExpenses });
+    this.expensesApiError$ = this.store.select(expensesQuery.getError);
+    this.expensesApiError$.subscribe(data => console.log(data))
+    const expenses$ = this.store.select(expensesQuery.getTopExpenses);
+    expenses$.subscribe(data => {
+      this.latestExpenses = data
+    });
   }
 
 }

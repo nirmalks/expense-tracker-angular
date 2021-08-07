@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import Expense from "../expenses/models/expense";
 import { Observable } from 'rxjs';
+import Expense from '../store/models/expense.model';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +24,6 @@ export class ExpensesService {
   }
 
   updateExpense(expense: Expense): Observable<Object> {
-    return this.http.put(this.configUrl + "/expenses/" + expense._id, expense);
+    return this.http.put(this.configUrl + "/expenses/" + expense.id, expense);
   }
 }

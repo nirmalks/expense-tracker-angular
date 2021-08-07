@@ -2,11 +2,11 @@ import {
   ActionReducerMap,
   MetaReducer
 } from '@ngrx/store';
-import { environment } from '../../environments/environment';
-import * as fromExpenses from './expenses';
+import { environment } from 'src/environments/environment';
+import * as fromExpenses from '../reducers/expense.reducer';
 
 export interface AppState {
-  data: fromExpenses.ExpensesState
+  data: fromExpenses.ExpensesData
 }
 
 export const reducers: ActionReducerMap<AppState> = {

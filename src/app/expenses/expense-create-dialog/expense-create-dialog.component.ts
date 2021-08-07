@@ -4,10 +4,9 @@ import { FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import * as moment from 'moment';
-import { createExpense, updateExpense } from 'src/app/actions/expense.action';
-import { AppState } from 'src/app/reducers';
-import { ExpensesService } from 'src/app/services/expenses.service';
 import Category from '../models/category';
+import { AppState } from 'src/app/store/reducers';
+import { addExpense, updateExpense } from 'src/app/store/actions/expense.actions';
 
 
 @Component({
@@ -25,11 +24,10 @@ export class ExpenseCreateDialogComponent implements OnInit, AfterViewInit {
   expenseId: string = "";
 
   expenseCreateForm : any = "";
-  constructor(private expensesService: ExpensesService,
-    public dialogRef: MatDialogRef<ExpenseCreateDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, 
+  constructor(public dialogRef: MatDialogRef<ExpenseCreateDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private cdr: ChangeDetectorRef,
-    private store: Store<AppState>) { 
+    private store: Store<AppState>) {
   }
 
   ngOnInit(): void {
@@ -42,7 +40,7 @@ export class ExpenseCreateDialogComponent implements OnInit, AfterViewInit {
       this.expenseDescription.setValue(this.data.element.description);
       this.expenseDate.setValue(this.data.element.expenseDate);
       this.expenseCategory.setValue(this.data.element.category);
-      this.expenseId = this.data.element._id;
+      this.expenseId = this.data.element.id;
       this.cdr.detectChanges();
     }
   }
@@ -53,12 +51,12 @@ export class ExpenseCreateDialogComponent implements OnInit, AfterViewInit {
       "amount": this.expenseAmount.value,
       "description": this.expenseDescription.value,
       "expenseDate": moment(this.expenseDate.value).format("DD/MM/YYYY"),
-      "_id": this.expenseId
+      "id": this.expenseId
     };
     if (this.expenseId) {
-      this.store.dispatch(updateExpense({expense}));
+      this.store.dispatch(updateExpense({ expense }));
     } else {
-      this.store.dispatch(createExpense({expense}));
+      this.store.dispatch(addExpense({ expense }));
     }
   }
 

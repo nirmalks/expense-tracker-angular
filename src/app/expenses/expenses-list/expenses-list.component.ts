@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { deleteExpense, ExpenseActionType } from 'src/app/actions/expense.action';
-import { AppState } from 'src/app/reducers';
-import { selectAllExpenses, selectTopExpenses } from 'src/app/reducers/expenses';
-import { ExpensesService } from 'src/app/services/expenses.service';
 import { ExpenseCreateDialogComponent } from '../expense-create-dialog/expense-create-dialog.component';
-import Expense from '../models/expense';
+import { AppState } from 'src/app/store/reducers';
+import { deleteExpense, ExpenseActionType } from 'src/app/store/actions/expense.actions';
+import { expensesQuery } from 'src/app/store/selectors/expense.selector';
+import Expense  from 'src/app/store/models/expense.model';
 
 @Component({
   selector: 'app-expenses-list',
@@ -16,7 +15,6 @@ import Expense from '../models/expense';
 export class ExpensesListComponent implements OnInit {
 
   constructor(public dialog: MatDialog,
-    private expensesService: ExpensesService,
     private store: Store<AppState>) { }
   dataSource: Expense[] = [];
   displayedColumns: string[] = ['date', 'amount', 'category', 'description', 'actions'];
@@ -37,15 +35,16 @@ export class ExpensesListComponent implements OnInit {
   }
 
   showExpenses() {
-    this.store.dispatch({ type: ExpenseActionType.getAllExpenses });
-    const expenses$ = this.store.select(selectTopExpenses);
+    this.store.dispatch({ type: ExpenseActionType.loadExpenses });
+    const expenses$ = this.store.select(expensesQuery.getTopExpenses);
     expenses$.subscribe(data => {
       this.dataSource = data
     });
   }
 
-  deleteExpense(element: any) {
-    this.store.dispatch(deleteExpense({expenseId: element._id}));
+  deleteExpense(element: Expense) {
+    console.log(element.id)
+    this.store.dispatch(deleteExpense({id: element.id}));
     this.dataSource = this.dataSource.filter((item: any) => item !== element);
   }
 
