@@ -30,6 +30,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('expense-tracker app is running!');
+    expect(compiled.querySelector('span.logo-text').textContent).toContain('Expense Tracker');
   });
 });

@@ -21,7 +21,6 @@ export class ExpensesComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch({ type: ExpenseActionType.loadExpenses });
     this.expensesApiError$ = this.store.select(expensesQuery.getError);
-    this.expensesApiError$.subscribe(data => console.log(data))
     const expenses$ = this.store.select(expensesQuery.getTopExpenses);
     expenses$.subscribe(data => {
       this.latestExpenses = data

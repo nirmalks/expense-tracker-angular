@@ -14,8 +14,7 @@ import Expense  from 'src/app/store/models/expense.model';
 })
 export class ExpensesListComponent implements OnInit {
 
-  constructor(public dialog: MatDialog,
-    private store: Store<AppState>) { }
+  constructor(public dialog: MatDialog, private store: Store<AppState>) { }
   dataSource: Expense[] = [];
   displayedColumns: string[] = ['date', 'amount', 'category', 'description', 'actions'];
 
@@ -43,7 +42,6 @@ export class ExpensesListComponent implements OnInit {
   }
 
   deleteExpense(element: Expense) {
-    console.log(element.id)
     this.store.dispatch(deleteExpense({id: element.id}));
     this.dataSource = this.dataSource.filter((item: any) => item !== element);
   }
